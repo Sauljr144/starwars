@@ -1,8 +1,13 @@
+import Link from 'next/link';
 import {IoCartOutline } from 'react-icons/io5';
 
 const ShoppingCart = () => {
   return (
-    <div>ShoppingCart</div>
+    <Link
+      href={'/Cart'}
+      >
+      <IoCartOutline className='text-2xl'/>
+    </Link>
   )
 }
 

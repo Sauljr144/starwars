@@ -1,14 +1,15 @@
-'use client'
+'use client';
 import links from '@/utils/links';
 import Link from 'next/link';
 import Image from 'next/image';
 import { IoMenu, IoCloseOutline, IoCartOutline } from 'react-icons/io5';
 import { useState } from 'react';
-import logo from '../../../../../public/assets/images/starwars.png'
+import logo from '../../../../../public/assets/images/starwars.png';
+import ShoppingCart from '../../atoms/ShoppingCart';
 
-interface Link{
-  name: string,
-  href: string
+interface Link {
+  name: string;
+  href: string;
 }
 
 const Navbar = () => {
@@ -28,18 +29,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className=' hidden lg:flex items-center '>
-          <div className='mr-6'>
-            {links.map((link: Link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className=' mx-5 font-poppins hover:font-medium hover:underline hover:underline-offset-8 '
-              >
-                {link.name}
-              </Link>
-            ))}
-          </div>
-          
+          <ShoppingCart />
         </div>
 
         <div className='lg:hidden z-10'>
@@ -58,7 +48,7 @@ const Navbar = () => {
 
           {/* Mobile Navigation */}
           <div
-            onClick={(e) => e.stopPropagation()} 
+            onClick={(e) => e.stopPropagation()}
             className={`fixed right-0 bottom-0 top-0 flex flex-col w-[60%] h-screen bg-black rounded-l-xl z-20 ease-in duration-300 ${
               openMenu ? 'translate-x-0' : 'translate-x-full'
             }`}
@@ -73,16 +63,9 @@ const Navbar = () => {
             {/* Navigation Links */}
             <div className='flex flex-col h-3/4 mt-14'>
               <div className='flex flex-col ms-5'>
-                {links.map((link) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    className='mb-4 text-xl font-poppins hover:font-medium hover:underline hover:underline-offset-8'
-                    onClick={() => setOpenMenu(false)} // Close menu on link click
-                  >
-                    {link.name}
-                  </Link>
-                ))}
+                <Link href={'/Cart'}>
+                  <h3>Shopping Cart</h3>
+                </Link>
               </div>
             </div>
           </div>

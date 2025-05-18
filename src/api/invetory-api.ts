@@ -1,7 +1,6 @@
-import { Planets } from "@/types/Planets";
+const baseURL = 'https://swapi.info/api/'
 
-export default async function getAllPlanets(): Promise<Planets[]>{
-    const data = await fetch('https://swapi.info/api/planets')
-    const planets = await data.json()
-    return planets;
+export default async function getStarWarsData(type:string){
+    const data = await fetch(`${baseURL}${type}`)
+    return await data.json()
 }
