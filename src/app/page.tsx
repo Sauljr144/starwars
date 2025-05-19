@@ -4,12 +4,25 @@ import HerosTable from '@/components/atomic/molecules/HerosTable';
 import PlanetsTable from '@/components/atomic/molecules/PlanetsTable';
 import StarshipsTable from '@/components/atomic/molecules/StarshipsTable';
 import { useState } from 'react';
+import {People} from '@/types/People';
+import { Starships } from '@/types/Starships';
+import { Planets } from '@/types/Planets';
+
+interface Price{
+  price: string;
+}
+
+interface PlanetsPrice extends Planets, Price{}
+interface StarshipsPrice extends Starships, Price{}
+interface PeoplePrice extends People, Price{}
+
+type Items = PlanetsPrice | StarshipsPrice | PeoplePrice;
 
 export default function Home() {
   const [tableType, setTableType] = useState('planets');
-  const [cartItems, setCartItems] = useState<any[]>([]);
+  const [cartItems, setCartItems] = useState<Items[]>([]);
 
-  const addToCart = (item: any) => {
+  const addToCart = (item: Items) => {
     setCartItems((prev) => [...prev, item]);
     localStorage.setItem('cartItems', JSON.stringify([...cartItems, item]));
   };

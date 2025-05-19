@@ -1,8 +1,7 @@
 'use client';
-import links from '@/utils/links';
 import Link from 'next/link';
 import Image from 'next/image';
-import { IoMenu, IoCloseOutline, IoCartOutline } from 'react-icons/io5';
+import { IoMenu, IoCloseOutline} from 'react-icons/io5';
 import { useState } from 'react';
 import logo from '../../../../../public/assets/images/starwars.png';
 import ShoppingCart from '../../atoms/ShoppingCart';

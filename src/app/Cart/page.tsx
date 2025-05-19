@@ -2,8 +2,13 @@
 import { useEffect, useState } from 'react';
 import { FaTrashCan } from "react-icons/fa6";
 
+interface Items{
+  name: string;
+  price: string;
+}
+
 const Cart = () => {
-  const [cartItems, setCartItems] = useState<any[]>([]);
+  const [cartItems, setCartItems] = useState<Items[]>([]);
   const [total, setTotal] = useState(0.0);
 
   useEffect(() => {
@@ -17,11 +22,11 @@ const Cart = () => {
 
   useEffect(() => {
     const calculatedTotal = cartItems.reduce(
-      (sum: number, item: any) => sum + parseFloat(item.price), 0);
+      (sum, item) => sum + parseFloat(item.price.toString()), 0);
     setTotal(calculatedTotal);
   },[cartItems])
 
-  const removeFromCart = (item: any) => {
+  const removeFromCart = (item: Items) => {
     const updatedCartItems = cartItems.filter((cartItem) => cartItem !== item);
     setCartItems(updatedCartItems);
     localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
@@ -31,7 +36,7 @@ const Cart = () => {
     <div className='container p-3 mx-auto scroll-mt-[100px] font-poppins mt-7'>
       <div className='flex flex-col items-center'>
          <div>
-        <p className='font-bold text-2xl'>Total: ${total.toFixed(2)}</p>
+        <p className='font-bold text-2xl'>Total: ${total}</p>
       </div>
 
       {cartItems.map((item, index) => (

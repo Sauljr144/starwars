@@ -7,8 +7,12 @@ import Button from '../atoms/Button';
 import darkTheme from '@/utils/TableTheme';
 import { People } from '@/types/People';
 
+interface Price extends People {
+  price: string;
+}
+
 interface TableProps {
-  addToCart: (item: any) => void;
+  addToCart: (item: Price) => void;
 }
 
 const HerosTable = ({ addToCart }: TableProps) => {

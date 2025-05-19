@@ -7,8 +7,12 @@ import getStarWarsData from '@/api/invetory-api';
 import Button from '../atoms/Button';
 import darkTheme from '@/utils/TableTheme';
 
+interface PlanetWithPrice extends Planets {
+  price: string;
+}
+
 interface TableProps {
-  addToCart: (item: any) => void;
+  addToCart: (item: PlanetWithPrice) => void;
 }
 
 const PlanetsTable = ({ addToCart }: TableProps) => {
