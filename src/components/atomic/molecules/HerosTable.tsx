@@ -2,22 +2,22 @@
 import { useEffect, useMemo, useState } from 'react';
 import { MaterialReactTable, type MRT_ColumnDef } from 'material-react-table';
 import { ThemeProvider } from '@mui/material';
-import { Planets } from '@/types/Planets';
 import getStarWarsData from '@/api/invetory-api';
 import Button from '../atoms/Button';
 import darkTheme from '@/utils/TableTheme';
+import { People } from '@/types/People';
 
 interface TableProps{
   addToCart: (item:any) => void
 }
 
-const PlanetsTable = ({addToCart}:TableProps) => {
-  const [planets, setPlanets] = useState<Planets[]>([]);
+const HerosTable = ({addToCart}:TableProps) => {
+  const [people, setPeople] = useState<People[]>([]);
 
   useEffect(() => {
     const data = async () => {
       try {
-        setPlanets(await getStarWarsData('planets'));
+        setPeople(await getStarWarsData('people'));
       } catch (error) {
         console.error('Failed to fetch Planets', error);
       }
@@ -25,19 +25,20 @@ const PlanetsTable = ({addToCart}:TableProps) => {
     data();
   }, []);
 
-  const price = 9.99;
-  const planetsPriced = planets.map((planet) => ({
-    ...planet,
+  const price = 14.99;
+  const heros = people.filter(hero => hero.films.length > 1 && hero.starships.length > 0)
+  const herosPriced = heros.map((hero) => ({
+    ...hero,
     price: `$${price}`,
     stock: Math.floor(Math.random() * 50) + 1,
-    button: <Button name='Add to Cart' onClick={() => addToCart({...planet, price:`${price}`})}/>,
+    button: <Button name='Add to Cart' onClick={() => addToCart({...hero, price:`${price}`})}/>,
   }));
 
-  const columns = useMemo<MRT_ColumnDef<Planets>[]>(
+  const columns = useMemo<MRT_ColumnDef<People>[]>(
     () => [
       {
         accessorKey: 'name',
-        header: 'Planet',
+        header: 'Hero',
         size: 150,
       },
       {
@@ -63,7 +64,7 @@ const PlanetsTable = ({addToCart}:TableProps) => {
     <ThemeProvider theme={darkTheme}>
       <MaterialReactTable
         columns={columns}
-        data={planetsPriced}
+        data={herosPriced}
         enableColumnOrdering
         enableColumnPinning
       />
@@ -71,4 +72,4 @@ const PlanetsTable = ({addToCart}:TableProps) => {
   );
 };
 
-export default PlanetsTable;
+export default HerosTable;

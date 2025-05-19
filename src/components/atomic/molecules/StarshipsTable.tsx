@@ -10,8 +10,11 @@ import Button from '../atoms/Button';
 import { Starships } from '@/types/Starships';
 import darkTheme from '@/utils/TableTheme';
 
+interface TableProps{
+  addToCart: (item:any) => void
+}
 
-const ShipsTable = () => {
+const StarshipsTable = ({addToCart}:TableProps) => {
   const [starShips, setStarShips] = useState<Starships[]>([]);
 
   useEffect(() => {
@@ -26,13 +29,12 @@ const ShipsTable = () => {
     data();
   }, []);
 
-  const button = <Button name='Add to Cart' />;
   const price = 9.99;
   const starshipsPriced = starShips.map((ship) => ({
     ...ship,
     price: `$${price}`,
     stock: Math.floor(Math.random() * 50) + 1,
-    button,
+    button: <Button name='Add to Cart' onClick={() => addToCart({...ship, price:`${price}`})}/>,
   }));
 
   const columns = useMemo<MRT_ColumnDef<Starships>[]>(
@@ -74,4 +76,4 @@ const ShipsTable = () => {
   );
 };
 
-export default ShipsTable;
+export default StarshipsTable;
