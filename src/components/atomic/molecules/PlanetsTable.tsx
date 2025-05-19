@@ -7,11 +7,11 @@ import getStarWarsData from '@/api/invetory-api';
 import Button from '../atoms/Button';
 import darkTheme from '@/utils/TableTheme';
 
-interface TableProps{
-  addToCart: (item:any) => void
+interface TableProps {
+  addToCart: (item: any) => void;
 }
 
-const PlanetsTable = ({addToCart}:TableProps) => {
+const PlanetsTable = ({ addToCart }: TableProps) => {
   const [planets, setPlanets] = useState<Planets[]>([]);
 
   useEffect(() => {
@@ -30,7 +30,12 @@ const PlanetsTable = ({addToCart}:TableProps) => {
     ...planet,
     price: `$${price}`,
     stock: Math.floor(Math.random() * 50) + 1,
-    button: <Button name='Add to Cart' onClick={() => addToCart({...planet, price:`${price}`})}/>,
+    button: (
+      <Button
+        name='Add to Cart'
+        onClick={() => addToCart({ ...planet, price: `${price}` })}
+      />
+    ),
   }));
 
   const columns = useMemo<MRT_ColumnDef<Planets>[]>(

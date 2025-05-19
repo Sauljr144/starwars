@@ -7,11 +7,11 @@ import Button from '../atoms/Button';
 import darkTheme from '@/utils/TableTheme';
 import { People } from '@/types/People';
 
-interface TableProps{
-  addToCart: (item:any) => void
+interface TableProps {
+  addToCart: (item: any) => void;
 }
 
-const HerosTable = ({addToCart}:TableProps) => {
+const HerosTable = ({ addToCart }: TableProps) => {
   const [people, setPeople] = useState<People[]>([]);
 
   useEffect(() => {
@@ -26,12 +26,19 @@ const HerosTable = ({addToCart}:TableProps) => {
   }, []);
 
   const price = 14.99;
-  const heros = people.filter(hero => hero.films.length > 1 && hero.starships.length > 0)
+  const heros = people.filter(
+    (hero) => hero.films.length > 1 && hero.starships.length > 0
+  );
   const herosPriced = heros.map((hero) => ({
     ...hero,
     price: `$${price}`,
     stock: Math.floor(Math.random() * 50) + 1,
-    button: <Button name='Add to Cart' onClick={() => addToCart({...hero, price:`${price}`})}/>,
+    button: (
+      <Button
+        name='Add to Cart'
+        onClick={() => addToCart({ ...hero, price: `${price}` })}
+      />
+    ),
   }));
 
   const columns = useMemo<MRT_ColumnDef<People>[]>(

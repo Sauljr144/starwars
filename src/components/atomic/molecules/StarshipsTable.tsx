@@ -1,29 +1,25 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
-import {
-  MaterialReactTable,
-  type MRT_ColumnDef,
-} from 'material-react-table';
+import { MaterialReactTable, type MRT_ColumnDef } from 'material-react-table';
 import { createTheme, ThemeProvider } from '@mui/material';
 import getStarWarsData from '@/api/invetory-api';
 import Button from '../atoms/Button';
 import { Starships } from '@/types/Starships';
 import darkTheme from '@/utils/TableTheme';
 
-interface TableProps{
-  addToCart: (item:any) => void
+interface TableProps {
+  addToCart: (item: any) => void;
 }
 
-const StarshipsTable = ({addToCart}:TableProps) => {
+const StarshipsTable = ({ addToCart }: TableProps) => {
   const [starShips, setStarShips] = useState<Starships[]>([]);
 
   useEffect(() => {
     const data = async () => {
-      try{
+      try {
         setStarShips(await getStarWarsData('starships'));
-      }
-      catch(error){
-        console.error('Failed to fetch Planets', error)
+      } catch (error) {
+        console.error('Failed to fetch Planets', error);
       }
     };
     data();
@@ -34,7 +30,12 @@ const StarshipsTable = ({addToCart}:TableProps) => {
     ...ship,
     price: `$${price}`,
     stock: Math.floor(Math.random() * 50) + 1,
-    button: <Button name='Add to Cart' onClick={() => addToCart({...ship, price:`${price}`})}/>,
+    button: (
+      <Button
+        name='Add to Cart'
+        onClick={() => addToCart({ ...ship, price: `${price}` })}
+      />
+    ),
   }));
 
   const columns = useMemo<MRT_ColumnDef<Starships>[]>(
@@ -62,7 +63,6 @@ const StarshipsTable = ({addToCart}:TableProps) => {
     ],
     []
   );
-
 
   return (
     <ThemeProvider theme={darkTheme}>
